@@ -12,6 +12,9 @@ Foi utilizado Postgress como Banco de Dados
    git clone https://github.com/seu-usuario/sistema-usuarios.git
 
 2. Instale as dependências:
+   neste topico destaco o uso de:
+   - axios
+   - pg
 
    ```sh
     cd sistema-usuarios
