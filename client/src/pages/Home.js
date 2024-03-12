@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Home.css';
 import Modal from 'react-modal';
-function Home() {
+
+const Home = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [nomeFiltro, setNomeFiltro] = useState('');
   const [emailFiltro, setEmailFiltro] = useState('');
@@ -12,7 +13,9 @@ function Home() {
     id: null,
     nome: '',
     email: '',
-    telefone: ''
+    telefone: '',
+    coordenada_x: '',
+    coordenada_y: ''
   });
   const [usuarioEditando, setUsuarioEditando] = useState(null);
   const [adicionandoUsuario, setAdicionandoUsuario] = useState(false);
@@ -63,14 +66,18 @@ function Home() {
         id: usuario.id,
         nome: usuario.nome,
         email: usuario.email,
-        telefone: usuario.telefone
+        telefone: usuario.telefone,
+        coordenada_x: usuario.coordenada_x,
+        coordenada_y: usuario.coordenada_y
       });
     } else {
       setUsuarioEditando(null);
       setUsuarioAtual({
         nome: '',
         email: '',
-        telefone: ''
+        telefone: '',
+        coordenada_x: '',
+        coordenada_y: ''
       });
     }
     setModalAberto(true);
@@ -83,7 +90,9 @@ function Home() {
       id: null,
       nome: '',
       email: '',
-      telefone: ''
+      telefone: '',
+      coordenada_x: '',
+      coordenada_y: ''
     });
     handleListaLimpa();
   };
@@ -177,10 +186,25 @@ function Home() {
               value={usuarioAtual.telefone}
               onChange={handleInserirModal}
             />
+            <label>Coordenada X:</label>
+            <input
+              type="text"
+              name="coordenada_x"
+              value={usuarioAtual.coordenada_x}
+              onChange={handleInserirModal}
+            />
+            <label>Coordenada Y:</label>
+            <input
+              type="text"
+              name="coordenada_y"
+              value={usuarioAtual.coordenada_y}
+              onChange={handleInserirModal}
+            />
             <button onClick={adicionandoUsuario ? handleAdicionarUsuario : handleModificarUsuario}>
               {adicionandoUsuario ? "Adicionar" : "Alterar"}
             </button>
-            <button onClick={handleFecharModal}>Cancelar</button>
+            <button onClick={handleFecharModal}>Cancelar
+            </button>
           </Modal>
       </div>
       <div>

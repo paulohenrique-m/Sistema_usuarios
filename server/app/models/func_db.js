@@ -5,6 +5,8 @@ const Usuario = function(usuario) {
     this.nome = usuario.nome;
     this.email = usuario.email;
     this.telefone = usuario.telefone;
+    this.coordenada_x = usuario.coordenada_x;
+    this.coordenada_y = usuario.coordenada_y;
 };
 
 Usuario.get_usuario = (usuario, results) =>{
@@ -30,7 +32,11 @@ Usuario.get_usuario = (usuario, results) =>{
 
 Usuario.update_usuario = (usuario, results) => {
     sql.query(
-        `UPDATE tb_usuario SET nome='${usuario.nome}', email='${usuario.email}', telefone='${usuario.telefone}'
+        `UPDATE tb_usuario SET nome='${usuario.nome}', 
+                               email='${usuario.email}', 
+                               telefone='${usuario.telefone}',
+                               coordenada_x='${usuario.coordenada_x}',
+                               coordenada_y='${usuario.coordenada_y}'
         WHERE id= '${usuario.id}'`,
         (err, res) => {
             if (err) {
@@ -49,14 +55,18 @@ Usuario.update_usuario = (usuario, results) => {
 };
 
 Usuario.create_usuario = (usuario, results) => {
-    const query = `INSERT INTO tb_usuario (nome, email, telefone) VALUES('${usuario.nome}', '${usuario.email}','${usuario.telefone}') RETURNING *`;
-        
+    const query = `INSERT INTO tb_usuario (nome, email, telefone, coordenada_x, coordenada_y) 
+    VALUES('${usuario.nome}', 
+           '${usuario.email}',
+           '${usuario.telefone}',
+           '${usuario.coordenada_x}',
+           '${usuario.coordenada_y}') RETURNING *`;
     sql.query(query, (err, res) =>{
         if(err) {
             console.error(err);
             results(null, err);
         }
-        console.log("Usuario criado com sucesso")
+        console.log("Usuario criado com sucesso");
         results(null, res.rows); 
     });
 };
