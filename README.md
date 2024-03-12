@@ -19,10 +19,14 @@ Foi utilizado Postgress como Banco de Dados
    ```sh
     cd sistema-usuarios
     npm install
+3. Adiconando a build do React
+   dentro  de client/src é necessario rodar a build para abrir o node corretamente
+   ```sh
+    npm run build
 
 ## Uso
 1. Inicie o servidor de desenvolvimento:
-
+   dentro de /server utilize o comando
    ```sh
      npm start
 2. Abra o navegador e visite http://localhost:5000 para ver o aplicativo em execução.
