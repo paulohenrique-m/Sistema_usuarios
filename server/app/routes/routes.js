@@ -15,5 +15,6 @@ module.exports = app =>{
     // DELETE
     router.post("/delete_usuario", usuario.delete_usuario);
 
+    router.get("/calcular_rota_otimizada", usuario.melhor_rota);
     app.use('/usuarios', router);
 }

@@ -9,6 +9,8 @@ const Home = () => {
   const [emailFiltro, setEmailFiltro] = useState('');
   const [telefoneFiltro, setTelefoneFiltro] = useState('');
   const [modalAberto, setModalAberto] = useState(false);
+  const [modalRota, setModalRota] = useState(false);
+  const [rotasOtimizadas, setRotasOtimizadas] = useState([]);
   const [usuarioAtual, setUsuarioAtual] = useState({
     id: null,
     nome: '',
@@ -137,6 +139,16 @@ const Home = () => {
       });
   };
 
+  const calcularRotaOtimizada = () => {
+    axios.get('/usuarios/calcular_rota_otimizada')
+      .then(res => {
+        setRotasOtimizadas(res.data);
+        setModalRota(true);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
   return (
     <div className="container">
       <h1>LISTA DE USUÁRIOS</h1>
@@ -209,6 +221,18 @@ const Home = () => {
       </div>
       <div>
         <button onClick={() => handleAbrirModal(null)}>Adicionar</button>
+        <button onClick={calcularRotaOtimizada}>Calcular Rota Otimizada</button>
+      </div>
+      <div>
+        <Modal isOpen={modalRota} onRequestClose={() => setModalRota(false)}>
+          <h2>Rota Otimizada</h2>
+          <ul>
+            {rotasOtimizadas.map((usuario, index) => (
+              <li key={index}>{usuario.nome} - {usuario.coordenada_x}, {usuario.coordenada_y}</li>
+            ))}
+          </ul>
+          <button onClick={() => setModalRota(false)}>Fechar</button>
+        </Modal>
       </div>
     </div>
   );

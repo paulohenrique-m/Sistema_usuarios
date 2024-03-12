@@ -1,4 +1,5 @@
 const Usuario  = require("../models/func_db.js");
+const Rota  = require("../models/rota.js");
 
 exports.get_usuario = (req, res) => {
     const usuario = {
@@ -89,3 +90,23 @@ exports.delete_usuario = (req, res) => {
         }
     });
 }
+
+exports.melhor_rota = (req, res) => {
+    Usuario.get_usuario(null, (err, dados) => {
+        if(err){
+            res.status(500).send({
+                "msg": err.message || "Error"
+            });
+        }else{
+            Rota.melhor_rota(dados, (err, valor) => {
+                if(err){
+                    res.status(500).send({
+                        "msg": err.message || "Error"
+                    });
+                }else{
+                    res.send(valor);
+                }
+            });
+        }
+    });
+};
